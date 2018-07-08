@@ -60,7 +60,6 @@ $(document).ready(function () {
         },
     ];
 
-
     function startTimer() {
         myTimer = setTimeout(function () {
             outOfTime();
@@ -146,7 +145,6 @@ $(document).ready(function () {
         $("#startGame").show();
         $("#quizTimer").empty();
     }
-
 
     $("#startGame").on("click", function () {
         winCount = 0;
