@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    var questionCount = 0;
+    var winCount;
+    var lossCount;
+    var unanswered;
+    var questionCount;
     var correctAnswer;
-    var winCount = 0;
-    var lossCount = 0;
-    var unnasnwered = 0;
     var myTimer;
-    var number = 10;
     var quizTimer;
+    var number = 20;
     var quiz = [
         {
             question: "Each block of a Blockchain consist of which of the following?",
@@ -63,13 +63,13 @@ $(document).ready(function () {
     function startTimer() {
         myTimer = setTimeout(function () {
             outOfTime();
-        }, 10000);
-
+        }, 20000);
     }
 
-    function resetTimer() {
+    function pauseTimer() {
         clearTimeout(myTimer);
     }
+    
     function decrement() {
         number--;
         $("#quizTimer").html("<h2>" + "Time left: " + number + " Seconds" + "</h2>");
@@ -78,15 +78,14 @@ $(document).ready(function () {
 
     function questionFlow(num) {
         if (questionCount < quiz.length) {
-            $("#quizTimer").html("<h2>" + "Time left: " + number + " Seconds" + "</h2>");
-            quizTimer = setInterval(decrement, 1000);
-            correctAnswer = quiz[num].correct;
             questionCount++;
-            var question = quiz[num].question;
-            var answers = quiz[num].answers;
             $("#startGame").hide();
-            correctAnswer = quiz[num].correct;
+            quizTimer = setInterval(decrement, 1000);
+            $("#quizTimer").html("<h2>" + "Time left: " + number + " Seconds" + "</h2>");
+            var question = quiz[num].question;
             $("#question").html(question);
+            correctAnswer = quiz[num].correct;
+            var answers = quiz[num].answers;
             for (var i = 0; i < answers.length; i++) {
                 var button = $('<button/>', {
                     text: answers[i],
@@ -94,6 +93,7 @@ $(document).ready(function () {
                     click: function () { checkAsnwer(this.value, correctAnswer); }
                 });
                 $("#buttons").append(button);
+                $("#buttons").append("<br/>");
             }
             startTimer();
         }
@@ -103,9 +103,9 @@ $(document).ready(function () {
     };
 
     function outOfTime() {
-        number = 10;
+        number = 20;
+        unanswered++;
         clearInterval(quizTimer);
-        unnasnwered++;
         $("#buttons").empty();
         $("#question").html("Out of Time!" + "<br/>" + "Correct answer is: " + correctAnswer);
         setTimeout(function () {
@@ -114,11 +114,11 @@ $(document).ready(function () {
     }
 
     function checkAsnwer(answer, correctAnswer) {
-        resetTimer();
+        pauseTimer();
         if (answer === correctAnswer) {
-            number = 10;
-            clearInterval(quizTimer);
+            number = 20;
             winCount++;
+            clearInterval(quizTimer);
             $("#buttons").empty();
             $("#question").html("Correct Answer!");
             setTimeout(function () {
@@ -126,9 +126,9 @@ $(document).ready(function () {
             }, 5000);
 
         } else {
-            number = 10;
-            clearInterval(quizTimer);
+            number = 20;
             lossCount++;
+            clearInterval(quizTimer);
             $("#buttons").empty();
             $("#question").html("Wrong answer!" + "<br/>" + "Correct answer is: " + correctAnswer);
             setTimeout(function () {
@@ -138,18 +138,18 @@ $(document).ready(function () {
     }
 
     function endGame() {
-        number = 10;
-        questionCount = 0;
-        $("#startGame").html("Play Again?");
-        $("#question").html("Quiz Results" + "<br/>" + "Wins: " + winCount + "<br/>" + "Losses: " + lossCount + "<br/>" + "unnanswered: " + unnasnwered);
-        $("#startGame").show();
+        number = 20;
         $("#quizTimer").empty();
+        $("#question").html("Quiz Results" + "<br/>" + "Correct answers: " + winCount + "<br/>" + "Wrong asnwers: " + lossCount + "<br/>" + "Unanswered: " + unanswered);
+        $("#startGame").html("Play Again?");
+        $("#startGame").show();
     }
 
     $("#startGame").on("click", function () {
         winCount = 0;
         lossCount = 0;
-        unnasnwered = 0;
+        unanswered = 0;
+        questionCount = 0;
         questionFlow(questionCount);
     });
 });
