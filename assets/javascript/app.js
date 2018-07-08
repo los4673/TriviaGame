@@ -121,7 +121,7 @@ $(document).ready(function () {
             clearInterval(quizTimer);
             winCount++;
             $("#buttons").empty();
-            $("#question").html("Correct Answere!");
+            $("#question").html("Correct Answer!");
             setTimeout(function () {
                 questionFlow(questionCount);
             }, 5000);
