@@ -73,13 +73,13 @@ $(document).ready(function () {
     }
     function decrement() {
         number--;
-        $("#quizTimer").html("<h2>" + number + "</h2>");
+        $("#quizTimer").html("<h2>" + "Time left: " + number + " Seconds" + "</h2>");
 
     }
 
     function questionFlow(num) {
         if (questionCount < quiz.length) {
-            $("#quizTimer").html("<h2>" + number + "</h2>");
+            $("#quizTimer").html("<h2>" + "Time left: " + number + " Seconds" + "</h2>");
             quizTimer = setInterval(decrement, 1000);
             correctAnswer = quiz[num].correct;
             questionCount++;
@@ -100,7 +100,6 @@ $(document).ready(function () {
         }
         else {
             endGame();
-            console.log("Calls endGame()")
         }
     };
 
@@ -109,8 +108,7 @@ $(document).ready(function () {
         clearInterval(quizTimer);
         unnasnwered++;
         $("#buttons").empty();
-        $("#question").html("Out of Time!" + "<br/>" + "Correct answere is: " + correctAnswer);
-        console.log("Out of Time");
+        $("#question").html("Out of Time!" + "<br/>" + "Correct answer is: " + correctAnswer);
         setTimeout(function () {
             questionFlow(questionCount);
         }, 5000);
@@ -118,14 +116,12 @@ $(document).ready(function () {
 
     function checkAsnwer(answer, correctAnswer) {
         resetTimer();
-        console.log(questionCount);
         if (answer === correctAnswer) {
             number = 10;
             clearInterval(quizTimer);
             winCount++;
             $("#buttons").empty();
             $("#question").html("Correct Answere!");
-            console.log("correct!");
             setTimeout(function () {
                 questionFlow(questionCount);
             }, 5000);
@@ -135,8 +131,7 @@ $(document).ready(function () {
             clearInterval(quizTimer);
             lossCount++;
             $("#buttons").empty();
-            $("#question").html("You Lost!" + "<br/>" + "Correct answere is: " + correctAnswer);
-            console.log("wrong answer");
+            $("#question").html("Wrong answer!" + "<br/>" + "Correct answer is: " + correctAnswer);
             setTimeout(function () {
                 questionFlow(questionCount);
             }, 5000);
@@ -150,7 +145,6 @@ $(document).ready(function () {
         $("#question").html("Quiz Results" + "<br/>" + "Wins: " + winCount + "<br/>" + "Losses: " + lossCount + "<br/>" + "unnanswered: " + unnasnwered);
         $("#startGame").show();
         $("#quizTimer").empty();
-        console.log(questionCount);
     }
 
 
@@ -158,7 +152,6 @@ $(document).ready(function () {
         winCount = 0;
         lossCount = 0;
         unnasnwered = 0;
-        console.log("Start Game")
         questionFlow(questionCount);
     });
 });
