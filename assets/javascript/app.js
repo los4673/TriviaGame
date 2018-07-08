@@ -66,7 +66,7 @@ $(document).ready(function () {
         }, 20000);
     }
 
-    function pauseTimer() {
+    function resetTimer() {
         clearTimeout(myTimer);
     }
     
@@ -114,7 +114,7 @@ $(document).ready(function () {
     }
 
     function checkAsnwer(answer, correctAnswer) {
-        pauseTimer();
+        resetTimer();
         if (answer === correctAnswer) {
             number = 20;
             winCount++;
