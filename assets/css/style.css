@@ -1,0 +1,13 @@
+body {
+    background-image: url("/Users/carlos/Desktop/Davis/TriviaGame/assets/images/markus-spiske-207946-unsplash.jpg")
+}
+
+.game {
+    background-color: antiquewhite;
+    text-align: center;
+
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
